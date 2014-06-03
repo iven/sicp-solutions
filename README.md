@@ -1,4 +1,4 @@
-sicp-solutions
+SICP Solutions
 ==============
 
-My solutions to SICP.
+My solutions to SICP, in racket.
