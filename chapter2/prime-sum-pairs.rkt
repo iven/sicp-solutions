@@ -21,5 +21,6 @@
          (filter prime-sum?
                  (unique-pairs n))))
 
-(enumerate-interval 1 6)
-(prime-sum-pairs 6)
+(module+ main
+  (enumerate-interval 1 6)
+  (prime-sum-pairs 6))

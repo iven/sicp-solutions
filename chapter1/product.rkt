@@ -20,8 +20,9 @@
       (/ (+ n 2) (+ n 1))
       (/ (+ n 1) (+ n 2))))
 
-(* (product term-pi 1 inc 1000) 4)
-(* (product term-pi 1 inc 10000) 4)
-(* (product term-pi 1 inc 100000) 4)
-(* (product term-pi 1 inc 1000000) 4)
-(* (product-origin term-pi 1 inc 1000000) 4)
+(module+ main
+  (* (product term-pi 1 inc 1000) 4)
+  (* (product term-pi 1 inc 10000) 4)
+  (* (product term-pi 1 inc 100000) 4)
+  (* (product term-pi 1 inc 1000000) 4)
+  (* (product-origin term-pi 1 inc 1000000) 4))

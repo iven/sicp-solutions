@@ -17,4 +17,5 @@
                       (first-denomination coin-values))
                    coin-values)))))
 
-(cc 100 us-coins)
+(module+ main
+  (cc 100 us-coins))

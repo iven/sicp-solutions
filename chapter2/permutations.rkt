@@ -10,6 +10,6 @@
                        (permutations (remove x s))))
                 s)))
 
-(define test1 (list 1 2 3))
-
-(permutations test1)
+(module+ main
+  (define test1 (list 1 2 3))
+  (permutations test1))

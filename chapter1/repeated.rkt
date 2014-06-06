@@ -16,6 +16,6 @@
 (define (smooth f)
     (lambda (x) (/ (+ (f (- x dx)) (f x) (f (+ x dx)) 3))))
 
-((smooth square) 5)
-
-((repeated square 3) 2)
+(module+ main
+  ((smooth square) 5)
+  ((repeated square 3) 2))

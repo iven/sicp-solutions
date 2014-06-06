@@ -59,19 +59,20 @@
     (filter (lambda (x) (not (= x item)))
             seq))
 
-(define squares (list 0 1 4 9 16 25))
-(define odds (list 1 3 5 7 9))
+(module+ main
+  (define squares (list 0 1 4 9 16 25))
+  (define odds (list 1 3 5 7 9))
 
-(list-ref squares 3)
-(length squares)
-(append squares odds)
-(last-pair squares)
-(reverse squares)
-(map (lambda (x) (* x 10)) odds)
-(for-each
-  (lambda (x) (newline) (display x))
-  (list 57 321 88))
-(filter
-  (lambda (x) (= (remainder x 2) 0))
-  squares)
-(remove 4 squares)
+  (list-ref squares 3)
+  (length squares)
+  (append squares odds)
+  (last-pair squares)
+  (reverse squares)
+  (map (lambda (x) (* x 10)) odds)
+  (for-each
+    (lambda (x) (newline) (display x))
+    (list 57 321 88))
+  (filter
+    (lambda (x) (= (remainder x 2) 0))
+    squares)
+  (remove 4 squares))

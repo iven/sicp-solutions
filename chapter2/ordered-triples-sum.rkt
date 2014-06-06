@@ -21,7 +21,8 @@
     (filter (lambda (l) (sum-equals? l s))
             (unique-pairs n)))
 
-(define test1 (list 1 2 3))
-(sum-equals? test1 6)
-(sum-equals? test1 5)
-(ordered-triples-sum 9 9)
+(module+ main
+  (define test1 (list 1 2 3))
+  (sum-equals? test1 6)
+  (sum-equals? test1 5)
+  (ordered-triples-sum 9 9))

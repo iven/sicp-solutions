@@ -20,4 +20,5 @@
       (map (lambda (row) (matrix-*-vector cols row))
            m1)))
 
-(matrix-*-matrix matrix (list (list 1 2) (list 1 2) (list 1 2) (list 1 2)))
+(module+ main
+  (matrix-*-matrix matrix (list (list 1 2) (list 1 2) (list 1 2) (list 1 2))))

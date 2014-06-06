@@ -27,11 +27,12 @@
       (lambda (i) (- (* i 2) 1))
       k))
 
-(cont-frac
-  (lambda (i) 1.0)
-  (lambda (i) 1.0)
-  1000)
+(module+ main
+  (cont-frac
+    (lambda (i) 1.0)
+    (lambda (i) 1.0)
+    1000)
 
-(e-euler 1000)
+  (e-euler 1000)
 
-(tan-cf 5.0 1000)
+  (tan-cf 5.0 1000))

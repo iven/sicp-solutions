@@ -42,12 +42,13 @@
           (width (/ (- (upper-bound x) (lower-bound x)) 2.0)))
       (* (/ width center) 100.0)))
 
-(define i (make-interval 2 7))
-(define j (make-interval 8 3))
-(define k (make-center-percent 100 20))
+(module+ main
+  (define i (make-interval 2 7))
+  (define j (make-interval 8 3))
+  (define k (make-center-percent 100 20))
 
-(display-interval i)
-(display-interval j)
-(display-interval k)
-(display-interval (sub-interval i j))
-(display-interval (sub-interval j i))
+  (display-interval i)
+  (display-interval j)
+  (display-interval k)
+  (display-interval (sub-interval i j))
+  (display-interval (sub-interval j i)))

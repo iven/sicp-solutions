@@ -18,4 +18,5 @@
     (display (cdr x))
     (display ")"))
 
-(print-cons (cons 10 100))
+(module+ main
+  (print-cons (cons 10 100)))

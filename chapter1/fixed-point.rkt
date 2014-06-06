@@ -49,28 +49,29 @@
     (lambda (x)
       (+ (* x x x) (* a (* x x) (* b x) c))))
 
-(print-line "SQRT")
-(sqrt 100.0)
-(newline)
+(module+ main
+  (print-line "SQRT")
+  (sqrt 100.0)
+  (newline)
 
-(print-line "SQRT NEWTON")
-(sqrt-newton 100.0)
-(newline)
+  (print-line "SQRT NEWTON")
+  (sqrt-newton 100.0)
+  (newline)
 
-(print-line "E")
-(fixed-point
-  (lambda (x) (+ (/ 1 x) 1))
-  1.0)
-(newline)
+  (print-line "E")
+  (fixed-point
+    (lambda (x) (+ (/ 1 x) 1))
+    1.0)
+  (newline)
 
-(print-line "E NEWTON")
-(newton-method
-  (lambda (x) (+ (/ 1 x) (- 1 x)))
-  1.0)
-(newline)
+  (print-line "E NEWTON")
+  (newton-method
+    (lambda (x) (+ (/ 1 x) (- 1 x)))
+    1.0)
+  (newline)
 
-(print-line "LOG(1000)/LOG(X)")
-(average-method
-  (lambda (x) (/ (log 1000) (log x)))
-  10.0)
-(newline)
+  (print-line "LOG(1000)/LOG(X)")
+  (average-method
+    (lambda (x) (/ (log 1000) (log x)))
+    10.0)
+  (newline))

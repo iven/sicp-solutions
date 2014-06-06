@@ -17,5 +17,6 @@
         (* 4 y))))
   (* (/ h 3) (sum simpson-term 0 inc fixed-n)))
 
-(simpson cube 0 1 100)
-(simpson cube 0 1 1000)
+(module+ main
+  (simpson cube 0 1 100)
+  (simpson cube 0 1 1000))

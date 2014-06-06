@@ -8,4 +8,5 @@
                        (lambda (x) (cons (car s) x))
                        rest)))))
 
-(subsets (list 1 2 3))
+(module+ main
+  (subsets (list 1 2 3)))

@@ -20,4 +20,3 @@
         result
         (iter (next a) (+ result (term a)))))
     (iter a 0))
-

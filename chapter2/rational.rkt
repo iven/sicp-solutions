@@ -34,15 +34,16 @@
     (display "/")
     (display (denom x)))
 
-(define one-half (make-rat 1 2))
-(define one-third (make-rat 1 3))
-(define one-fourth (make-rat (- 3) (- 12)))
+(module+ main
+  (define one-half (make-rat 1 2))
+  (define one-third (make-rat 1 3))
+  (define one-fourth (make-rat (- 3) (- 12)))
 
-(print-rat one-half)
-(print-rat (add-rat one-half one-third))
-(print-rat (sub-rat one-half one-third))
-(print-rat (mul-rat one-half one-third))
-(print-rat (div-rat one-half one-third))
+  (print-rat one-half)
+  (print-rat (add-rat one-half one-third))
+  (print-rat (sub-rat one-half one-third))
+  (print-rat (mul-rat one-half one-third))
+  (print-rat (div-rat one-half one-third))
 
-(print-rat (add-rat one-third one-third))
-(print-rat one-fourth)
+  (print-rat (add-rat one-third one-third))
+  (print-rat one-fourth))

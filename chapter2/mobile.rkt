@@ -24,10 +24,11 @@
              (= (branch-torque l) (branch-torque r))))
     true))
 
-(define test1 (make-mobile (make-branch 5
-                                        (make-mobile (make-branch 3 4)
-                                                     (make-branch 2 6)))
-                           (make-branch 2 25)))
-(total-weight test1)
-(branch-torque (left-branch test1))
-(balance? test1)
+(module+ main
+  (define test1 (make-mobile (make-branch 5
+                                          (make-mobile (make-branch 3 4)
+                                                      (make-branch 2 6)))
+                            (make-branch 2 25)))
+  (total-weight test1)
+  (branch-torque (left-branch test1))
+  (balance? test1))
