@@ -21,12 +21,24 @@
     (accumulate op initial sequence))
 
 (define (fold-left op initial sequence)
-    (define (iter seq result)
-      (if (null? seq)
+    (define (iter result rest)
+      (if (null? rest)
         result
-        (iter (cdr seq)
-              (op result (car seq)))))
-    (iter sequence initial))
+        (iter (op result (car rest))
+              (cdr rest))))
+    (iter initial sequence))
+
+(define (reverse-right sequence)
+    (fold-right
+      (lambda (first result) (append result (list first)))
+      null
+      sequence))
+
+(define (reverse-left sequence)
+    (fold-left
+      (lambda (result first) (cons first result))
+      null
+      sequence))
 
 (define squares (list 0 1 4 9 16 25))
 (define test1 (list (list 1 2 3)
@@ -37,3 +49,5 @@
 (fold-right (lambda (x y) (+ x y)) 0 squares)
 (fold-left / 1 (list 1 2 3))
 (accumulate-n + 0 test1)
+(reverse-right squares)
+(reverse-left squares)
