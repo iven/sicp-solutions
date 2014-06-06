@@ -57,12 +57,6 @@
           (cons first (filter proc rest))
           (filter proc rest)))))
 
-(define (accumulate op initial sequence)
-    (if (null? sequence)
-      initial
-      (op (car sequence)
-          (accumulate op initial (cdr sequence)))))
-
 (define squares (list 0 1 4 9 16 25))
 (define odds (list 1 3 5 7 9))
 
@@ -77,8 +71,4 @@
   (list 57 321 88))
 (filter
   (lambda (x) (= (remainder x 2) 0))
-  squares)
-(accumulate
-  (lambda (x y) (+ x y))
-  0
   squares)

@@ -1,6 +1,6 @@
 #lang racket
 
-(require "list.rkt")
+(require "accumulate.rkt")
 
 (define (horner-eval x coefficient-sequence)
     (accumulate
