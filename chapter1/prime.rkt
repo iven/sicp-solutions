@@ -1,5 +1,7 @@
 #lang racket
 
+(provide prime?)
+
 (define (search-for-primes a b)
   (if (> a b)
     (void)

@@ -1,6 +1,6 @@
 #lang racket
 
-(provide accumulate accumulate-n)
+(provide accumulate accumulate-n flat-map)
 
 (define (accumulate op initial sequence)
     (if (null? sequence)
@@ -40,14 +40,17 @@
       null
       sequence))
 
+(define (flat-map proc seq)
+    (accumulate append null (map proc seq)))
+
 (define squares (list 0 1 4 9 16 25))
 (define test1 (list (list 1 2 3)
                     (list 4 5 6)
                     (list 7 8 9)
                     (list 10 11 12)))
 
-(fold-right (lambda (x y) (+ x y)) 0 squares)
-(fold-left / 1 (list 1 2 3))
-(accumulate-n + 0 test1)
-(reverse-right squares)
-(reverse-left squares)
+;(fold-right (lambda (x y) (+ x y)) 0 squares)
+;(fold-left / 1 (list 1 2 3))
+;(accumulate-n + 0 test1)
+;(reverse-right squares)
+;(reverse-left squares)
