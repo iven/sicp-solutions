@@ -1,7 +1,5 @@
 #lang racket
 
-(provide accumulate)
-
 (define (list-ref l n)
     (if (= n 0)
       (car l)
@@ -57,6 +55,10 @@
           (cons first (filter proc rest))
           (filter proc rest)))))
 
+(define (remove item seq)
+    (filter (lambda (x) (not (= x item)))
+            seq))
+
 (define squares (list 0 1 4 9 16 25))
 (define odds (list 1 3 5 7 9))
 
@@ -72,3 +74,4 @@
 (filter
   (lambda (x) (= (remainder x 2) 0))
   squares)
+(remove 4 squares)
