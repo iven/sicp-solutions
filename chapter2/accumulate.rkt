@@ -1,6 +1,6 @@
 #lang racket
 
-(provide accumulate accumulate-n flat-map)
+(provide accumulate accumulate-n flatmap)
 
 (define (accumulate op initial sequence)
     (if (null? sequence)
@@ -40,7 +40,7 @@
       null
       sequence))
 
-(define (flat-map proc seq)
+(define (flatmap proc seq)
     (accumulate append null (map proc seq)))
 
 (module+ main

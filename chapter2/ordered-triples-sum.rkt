@@ -10,8 +10,8 @@
           (cadr (cdr l)))))
 
 (define (unique-pairs n)
-    (flat-map (lambda (x)
-                (flat-map (lambda (y)
+    (flatmap (lambda (x)
+                (flatmap (lambda (y)
                             (map (lambda (z) (list x y z))
                                  (enumerate-interval 1 (- y 1))))
                           (enumerate-interval 1 (- x 1))))

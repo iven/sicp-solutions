@@ -5,7 +5,7 @@
 (define (permutations s)
     (if (null? s)
       (list null)
-      (flat-map (lambda (x)
+      (flatmap (lambda (x)
                   (map (lambda (y) (cons x y))
                        (permutations (remove x s))))
                 s)))
