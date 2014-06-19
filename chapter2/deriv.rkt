@@ -1,5 +1,7 @@
 #lang racket
 
+(require "../chapter1/exponentiation.rkt")
+
 (define (varible? e) (symbol? e))
 (define (same-varible? x y) (and (varible? x) (varible? y) (eq? x y)))
 (define (=number? e num) (and (number? e) (= e num)))
@@ -23,6 +25,16 @@
           ((and (number? x) (number? y)) (* x y))
           (else (list '* x y))))
 
+(define (expt? e) (and (pair? e) (eq? (car e) '**)))
+(define (base e) (cadr e))
+(define (exponent e) (caddr e))
+(define (make-expt b n)
+    (cond	((=number? n 0) 1)  ; Assume (not (= b 0))
+          ((=number? n 1) b)
+          ((=number? b 1) 1)
+          ((and (number? b) (number? n)) (expt b n))
+          (else (list '** b n))))
+
 (define (deriv exp var)
     (cond	((number? exp) 0)
           ((varible? exp) (if (same-varible? exp var) 1 0))
@@ -34,10 +46,16 @@
                                    (deriv (multiplicand exp) var))
                      (make-product (multiplicand exp)
                                    (deriv (multiplier exp) var))))
+          ((expt? exp)
+           (make-product (make-product (exponent exp)
+                                       (make-expt (base exp)
+                                                  (- (exponent exp) 1)))
+                         (deriv (base exp) var)))
           (else (error "Unknown expression type -- DERIV" exp))))
 
 (module+
   main
   (deriv '(+ x 3) 'x)
   (deriv '(* x y) 'x)
-  (deriv '(* (* x y) (+ x 3)) 'x))
+  (deriv '(* (* x y) (+ x 3)) 'x)
+  (deriv '(+ x (** x 5)) 'x))
