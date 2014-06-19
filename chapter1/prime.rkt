@@ -1,5 +1,6 @@
 #lang racket
 
+(require "square.rkt")
 (provide prime?)
 
 (define (search-for-primes a b)
@@ -38,4 +39,8 @@
 (define (divides? a b)
   (= (remainder b a) 0))
 
-(define (square x) (* x x))
+(module+
+  main
+  (prime? 199)
+  (prime? 1999)
+  (prime? 19999))

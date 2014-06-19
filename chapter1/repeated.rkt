@@ -1,7 +1,6 @@
 #lang racket
 
-(define (square x)
-    (* x x))
+(require "square.rkt")
 
 (define (compose f g)
     (lambda (x) (f (g x))))
