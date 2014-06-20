@@ -30,5 +30,7 @@
   (define test2 (list 1 3 5))
   (element-of-set? 2 test1)
   (element-of-set? 2 test2)
+  (adjoin-set 2 test1)
+  (adjoin-set 4 test2)
   (intersection-set test1 test2)
   (union-set test1 test2))
