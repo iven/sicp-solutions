@@ -1,0 +1,76 @@
+#lang racket
+
+(require "sorted_list.rkt")
+
+(define (entry tree) (car tree))
+(define (left-branch tree) (cadr tree))
+(define (right-branch tree) (caddr tree))
+(define (make-tree entry left right) (list entry left right))
+
+(define (element-of-set? e s)
+    (cond ((null? s) false)
+          ((< e (entry s)) (element-of-set? e (left-branch s)))
+          ((> e (entry s)) (element-of-set? e (right-branch s)))
+          (else true)))
+
+(define (adjoin-set e s)
+    (cond	((null? s) (make-tree e null null))
+          ((= e (entry s)) s)
+          ((< e (entry s))
+           (make-tree (entry s)
+                      (adjoin-set e (left-branch s))
+                      (right-branch s)))
+          ((> e (entry s))
+           (make-tree (entry s)
+                      (left-branch s)
+                      (adjoin-set e (right-branch s))))))
+
+(define (tree->list tree)
+    (define (copy-to-list tree result)
+      (if (null? tree)
+        result
+        (copy-to-list (left-branch tree)
+                      (cons (entry tree)
+                            (copy-to-list (right-branch tree)
+                                          result)))))
+    (copy-to-list tree null))
+
+(define (list->tree elements)
+    (car (partial-tree elements (length elements))))
+
+(define (partial-tree elements n)
+    (if (= n 0)
+      (cons null elements)
+      (let ((left-size (quotient (- n 1) 2)))
+        (let ((left-result (partial-tree elements left-size)))
+          (let ((left-tree (car left-result))
+                (non-left-elements (cdr left-result))
+                (right-size (- n left-size 1)))
+            (let ((this-entry (car non-left-elements))
+                  (right-result (partial-tree (cdr non-left-elements)
+                                              right-size)))
+              (let ((right-tree (car right-result))
+                    (remaining-elements (cdr right-result)))
+                (cons (make-tree this-entry left-tree right-tree)
+                      remaining-elements))))))))
+
+(define (intersection-set s1 s2)
+    (list->tree (intersection-set-sorted-list (tree->list s1)
+                                              (tree->list s2))))
+
+(define (union-set s1 s2)
+    (list->tree (union-set-sorted-list (tree->list s1)
+                                       (tree->list s2))))
+
+(module+
+  main
+  (define test1 (make-tree 2 (make-tree 1 null null) (make-tree 3 null null)))
+  (define test2 (make-tree 3 (make-tree 1 null null) (make-tree 5 null null)))
+  (element-of-set? 2 test1)
+  (element-of-set? 2 test2)
+  (tree->list test1)
+  (list->tree (list 1 2 3 4 5 6 7))
+  (adjoin-set 2 test1)
+  (adjoin-set 4 test2)
+  (intersection-set test1 test2)
+  (union-set test1 test2))

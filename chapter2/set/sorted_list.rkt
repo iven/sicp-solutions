@@ -1,5 +1,8 @@
 #lang racket
 
+(provide (rename-out [intersection-set intersection-set-sorted-list]
+                     [union-set union-set-sorted-list]))
+
 (define (element-of-set? e s)
     (cond ((null? s) false)
           ((< e (car s)) false)
