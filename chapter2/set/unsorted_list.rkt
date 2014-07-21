@@ -1,5 +1,7 @@
 #lang racket
 
+(provide (rename-out [element-of-set? element-of-set-unsorted-list?]))
+
 (define (element-of-set? e s)
     (if (null? s)
       false
