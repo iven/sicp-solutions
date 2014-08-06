@@ -45,6 +45,13 @@
               (else (error "Unknown request -- MAKE-ACCOUNT" m))))
     dispatch)
 
+(define (make-joint account pass new-pass)
+    (and (number? ((account pass 'withdraw) 0))
+         (lambda (p m)
+           (if (eq? p new-pass)
+             (account pass m)
+             (account 'bad-pass 'foo)))))
+
 (module+
   main
   (withdraw 25)
@@ -58,6 +65,9 @@
   (W2 40)
   (W1 40)
   (define acc (make-account 100 '1234))
+  (define new-acc (make-joint acc '1234 '4321))
+  ((new-acc '4321 'withdraw) 10)
+  ((new-acc '1111 'withdraw) 10)
   ((acc '1234 'withdraw) 50)
   ((acc '1234 'withdraw) 60)
   ((acc '1234 'deposit) 40)
