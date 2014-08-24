@@ -38,5 +38,4 @@
   (define b3 (cons a3 a3))
   (define c3 (cons b3 b3))
   (count-pairs-old c3)
-  (count-pairs c3)
-  )
+  (count-pairs c3))
