@@ -2,38 +2,51 @@
 
 (require scheme/mpair)
 
-(define (front-ptr q) (mcar q))
-(define (rear-ptr q) (mcdr q))
-(define (set-front-ptr! q item) (set-mcar! q item))
-(define (set-rear-ptr! q item) (set-mcdr! q item))
-(define (empty-queue? q) (null? (front-ptr q)))
-(define (make-queue) (mcons null null))
+(define (make-queue)
+    (let ((front-ptr null)
+          (rear-ptr null))
+      (define (set-front-ptr! value)
+          (set! front-ptr value)
+          dispatch)
+      (define (set-rear-ptr! value)
+          (set! rear-ptr value)
+          dispatch)
+      (define (empty?) (null? front-ptr))
 
-(define (front-queue q)
-    (if (empty-queue? q)
-      (error "FRONT called with an empty queue" q)
-      (front-ptr q)))
+      (define (insert! item)
+          (let ((new-pair (mcons item null)))
+            (if (empty?)
+              (begin
+                (set-front-ptr! new-pair)
+                (set-rear-ptr! new-pair))
+              (begin
+                (set-mcdr! rear-ptr new-pair)
+                (set-rear-ptr! new-pair)))))
 
-(define (insert-queue! q item)
-    (let ((new-pair (mcons item null)))
-      (if (empty-queue? q)
-        (begin
-          (set-front-ptr! q new-pair)
-          (set-rear-ptr! q new-pair)
-          q)
-        (begin
-          (set-rear-ptr! (rear-ptr q) new-pair)
-          (set-rear-ptr! q new-pair)
-          q))))
+      (define (delete!)
+          (if (empty?)
+            (error "DELETE! called with an empty queue")
+            (set-front-ptr! (mcdr front-ptr))))
 
-(define (delete-queue! q)
-    (if (empty-queue? q)
-      (error "DELETE! called with an empty queue" q)
-      (begin
-        (set-front-ptr! q (rear-ptr (front-ptr q)))
-        q)))
+      (define (print) front-ptr)
 
-(define (print-queue q) (mcar q))
+      (define (dispatch m)
+          (cond ((eq? m 'front) front-ptr)
+                ((eq? m 'rear) rear-ptr)
+                ((eq? m 'insert!) insert!)
+                ((eq? m 'delete!) delete!)
+                ((eq? m 'print) print)))
+      dispatch))
+
+(define (front-queue q) ((q 'front)))
+(define (rear-queue q) ((q 'rear)))
+(define (insert-queue! q item) ((q 'insert!) item))
+(define (delete-queue! q) ((q 'delete!)))
+(define (print-queue q)
+    (if (null? q)
+      null
+      ((q 'print))))
+
 
 (module+
   main
