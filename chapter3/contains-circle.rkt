@@ -1,7 +1,5 @@
 #lang racket
 
-(require scheme/mpair)
-
 (define (contains-cycle-old? x)
     (define (iter item encounted)
         (cond

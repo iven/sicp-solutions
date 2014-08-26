@@ -1,7 +1,5 @@
 #lang racket
 
-(require scheme/mpair)
-
 (define (make-queue)
     (let ((front-ptr null)
           (rear-ptr null))
