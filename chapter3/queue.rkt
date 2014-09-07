@@ -1,5 +1,9 @@
 #lang racket
 
+(provide make-queue empty-queue? print-queue
+         insert-queue! delete-queue!
+         front-queue rear-queue)
+
 (define (make-queue)
     (let ((front-ptr null)
           (rear-ptr null))
@@ -31,13 +35,21 @@
       (define (dispatch m)
           (cond ((eq? m 'front) front-ptr)
                 ((eq? m 'rear) rear-ptr)
+                ((eq? m 'empty?) (empty?))
                 ((eq? m 'insert!) insert!)
                 ((eq? m 'delete!) delete!)
                 ((eq? m 'print) print)))
       dispatch))
 
-(define (front-queue q) ((q 'front)))
-(define (rear-queue q) ((q 'rear)))
+(define (front-queue q)
+    (if (empty-queue? q)
+      (error "FRONT called with an empty queue" q)
+      (mcar (q 'front))))
+(define (rear-queue q)
+    (if (empty-queue? q)
+      (error "REAR called with an empty queue" q)
+      (mcar (q 'rear))))
+(define (empty-queue? q) (q 'empty?))
 (define (insert-queue! q item) ((q 'insert!) item))
 (define (delete-queue! q) ((q 'delete!)))
 (define (print-queue q)
