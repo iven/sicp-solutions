@@ -55,7 +55,6 @@
 (define (connect connector new-constraint)
     ((connector 'connect) new-constraint))
 
-
 (define (probe name connector)
     (define (print-probe value)
         (newline)
@@ -140,6 +139,14 @@
     (connect sum me)
     me)
 
+(define (averager a b c)
+    (let ((u (make-connector))
+          (v (make-connector)))
+      (adder a b u)
+      (multiplier c v u)
+      (constant 2 v)
+      'ok))
+
 (define (inform-about-value constraint)
     (constraint 'I-have-a-value))
 
@@ -162,12 +169,24 @@
 
 (module+
   main
+  ; Celsius to Fahrenheit
   (define C (make-connector))
   (define F (make-connector))
-  (celsius-fahrenheit-convertor C F)
-  (probe "Celsius temp" C)
-  (probe "Fahrenheit temp" F)
-  (set-value! C 25 'user)
-  ;(set-value! F 212 'user)
-  (forget-value! C 'user)
-  (set-value! F 212 'user))
+  (void
+    (celsius-fahrenheit-convertor C F)
+    (probe "Celsius temp" C)
+    (probe "Fahrenheit temp" F)
+    (set-value! C 25 'user)
+    ;(set-value! F 212 'user)
+    (forget-value! C 'user)
+    (set-value! F 212 'user))
+
+  ; Averager
+  (define A (make-connector))
+  (define B (make-connector))
+  (define AVERAGE (make-connector))
+  (void
+    (averager A B AVERAGE)
+    (probe "Average" AVERAGE)
+    (set-value! A 10 'user)
+    (set-value! B 6 'user)))
