@@ -1,5 +1,7 @@
 #lang racket
 
+(require "../chapter1/square.rkt")
+
 (define (for-each-except exception procedure list)
     (define (loop items)
         (cond	((null? items) 'done)
@@ -147,6 +149,22 @@
       (constant 2 v)
       'ok))
 
+(define (squarer a b)
+    (define (process-new-value)
+        (cond	((has-value? a) (set-value! b (square (get-value a)) me))
+              ((has-value? b) (set-value! a (sqrt (get-value b)) me))))
+    (define (process-forget-value)
+        (forget-value! a me)
+        (forget-value! b me)
+        (process-new-value))
+    (define (me request)
+        (cond	((eq? request 'I-have-a-value) (process-new-value))
+              ((eq? request 'I-lost-my-value) (process-forget-value))
+              (else "Unknown request -- SQUARER" request)))
+    (connect a me)
+    (connect b me)
+    me)
+
 (define (inform-about-value constraint)
     (constraint 'I-have-a-value))
 
@@ -189,4 +207,15 @@
     (averager A B AVERAGE)
     (probe "Average" AVERAGE)
     (set-value! A 10 'user)
-    (set-value! B 6 'user)))
+    (set-value! B 6 'user))
+
+  (define M (make-connector))
+  (define N (make-connector))
+  (void
+    (squarer M N)
+    (probe "M" M)
+    (probe "N" N)
+    (set-value! M 10 'user)
+    (forget-value! M 'user)
+    (set-value! N 49 'user))
+  )
